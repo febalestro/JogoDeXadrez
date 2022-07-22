@@ -1,4 +1,4 @@
-﻿
+﻿//Dizer em qual linha e em qual coluna uma peça está
 
 namespace tabuleiro
 {

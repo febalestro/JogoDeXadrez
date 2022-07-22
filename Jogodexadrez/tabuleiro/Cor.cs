@@ -1,4 +1,4 @@
-﻿
+﻿//estabelece as cores das peças
 
 namespace tabuleiro
 {
