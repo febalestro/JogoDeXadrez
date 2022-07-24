@@ -3,17 +3,23 @@ using Jogodexadrez;
 using xadrez;
 try
 {
-    Tabuleiro tab = new Tabuleiro(8, 8);
+    PartidaDeXadrez partida = new PartidaDeXadrez();
 
-    tab.ColocarPeca(new Torre(Cor.Preta, tab), new Posicao(0, 0));
-   // tab.ColocarPeca(new Torre(Cor.Preta, tab), new Posicao(1, 3));
-   // tab.ColocarPeca(new Rei(Cor.Preta, tab), new Posicao(0, 2));
+    while (!partida.Terminada)
+    {
+        Console.Clear ();
+        Tela.ImprimirTabuleiro(partida.Tab);
 
-    tab.ColocarPeca(new Torre(Cor.Branca, tab), new Posicao(3, 5));
-    tab.ColocarPeca(new Torre(Cor.Branca, tab), new Posicao(3, 6));
-    tab.ColocarPeca(new Rei(Cor.Branca, tab), new Posicao(3, 7));
+        Console.WriteLine();
+        Console.WriteLine("Origem: ");
+        Posicao origem = Tela.LerPosicaoXadrez().ToPosicao(); //lê uma posição do xadrez depois transforma para uma posição de matriz
+        Console.WriteLine("Destino: ");
+        Posicao destino = Tela.LerPosicaoXadrez().ToPosicao();
 
-    Tela.ImprimirTabuleiro(tab);
+        partida.ExecutaMovimento(origem, destino);//Depois que lê a posição, o programa executa o movimento.
+    }
+
+   
 }
 catch (TabuleiroException e)
 {

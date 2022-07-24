@@ -30,9 +30,9 @@ namespace tabuleiro
         {
             ValidarPosicao(pos);// coloco isso antes pq se a posição for inválida eu corto o método e lanço exceção
             return Peca(pos) != null;
-        } 
+        }
 
-        public void ColocarPeca (Peca p, Posicao pos)// ir na matriz peças, na posição pos.linha e pos.coluna e recebe a peça p
+        public void ColocarPeca(Peca p, Posicao pos)// ir na matriz peças, na posição pos.linha e pos.coluna e recebe a peça p
         {
             if (ExistePeca(pos)) {
                 throw new TabuleiroException("Já existe uma peça nessa posição!");
@@ -41,21 +41,33 @@ namespace tabuleiro
             p.Posicao = pos; //a posição da minha peça p é essa que acabei de colocar
         }
 
-        public bool PosicaoValida(Posicao pos)
+        public Peca RetirarPeca(Posicao pos)
         {
-            if (pos.Linha<0 || pos.Linha>=Linhas || pos.Coluna<0 || pos.Coluna>=Colunas)
+            if (Peca(pos) == null)
             {
-                return false;
+                return null;
             }
-            return true;
+            Peca aux = Peca(pos); //se tem peça na dada posição, crio uma variável auxiliar pra receber a peça que está naposição informada
+            aux.Posicao = null; //agora a posição dessa peça é null
+            Pecas[pos.Linha, pos.Coluna] = null; // vou no tabuleiro "Pecas" e colocar nulo na posição i,j informada
+            return aux; //retorno a peça que guardei na posição auxiliar
         }
-
-        public void ValidarPosicao(Posicao pos) //caso a posição não seja válida, lança uma exceção personalizada
-        {
-            if (!PosicaoValida(pos))
+            public bool PosicaoValida(Posicao pos)
             {
-                throw new TabuleiroException("Posição inválida!");
+                if (pos.Linha < 0 || pos.Linha >= Linhas || pos.Coluna < 0 || pos.Coluna >= Colunas)
+                {
+                    return false;
+                }
+                return true;
+            }
+
+            public void ValidarPosicao(Posicao pos) //caso a posição não seja válida, lança uma exceção personalizada
+            {
+                if (!PosicaoValida(pos))
+                {
+                    throw new TabuleiroException("Posição inválida!");
+                }
             }
         }
     }
-}
+
