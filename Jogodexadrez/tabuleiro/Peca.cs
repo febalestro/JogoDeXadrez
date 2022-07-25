@@ -23,6 +23,30 @@ namespace tabuleiro
             QteMovimentos++;
         }
 
+        //Testar se na matriz de booleanos existe algum valor possível
+        //Ou se ela está bloqueada de movimento
+        public bool ExistemMovimentosPossiveis() 
+        {
+            bool[,] mat = MovimentosPossiveis();
+            for (int i = 0; i < Tab.Linhas; i++)
+            {
+                for (int j = 0; j < Tab.Colunas; j++)
+                {
+                    if (mat[i,j] == true)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public bool PodeMoverPara(Posicao pos)
+        {
+            return MovimentosPossiveis()[pos.Linha, pos.Coluna];
+        }
+
+
         //Retorna um booleano porque quero marcar na matriz onde o movimento é possível e onde não é
         //Método abstrato porque depende da peça, então não posso implantar nessa classe
         public abstract bool[,] MovimentosPossiveis(); 
