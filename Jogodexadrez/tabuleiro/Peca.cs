@@ -23,6 +23,11 @@ namespace tabuleiro
             QteMovimentos++;
         }
 
+        public void DecrementarQteMovimentos()
+        {
+            QteMovimentos--;
+        }
+
         //Testar se na matriz de booleanos existe algum valor possível
         //Ou se ela está bloqueada de movimento
         public bool ExistemMovimentosPossiveis() 
