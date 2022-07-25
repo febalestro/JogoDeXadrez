@@ -10,26 +10,53 @@ namespace Jogodexadrez
          * Como faço para imprimir a posição das peças? como essa localização é privativa do tabuleiro, preciso ver uma forma
          * de dar acesso a uma peça no meu tabuleiro
          */
-        public static void ImprimirTabuleiro(Tabuleiro tab) // 
+        public static void ImprimirTabuleiro(Tabuleiro tab)
         {
-            for (int i = 0; i < tab.Linhas; i++)
             {
-                Console.Write(8 - i + " ");
-                for (int j = 0; j < tab.Colunas; j++)
+                for (int i = 0; i < tab.Linhas; i++)
                 {
-                    if (tab.Peca(i, j) == null)
+                    Console.Write(8 - i + " ");
+                    for (int j = 0; j < tab.Colunas; j++)
                     {
-                        Console.Write("- ");
+                        ImprimirPeca(tab.Peca(i, j));
+
                     }
-                    else
-                    {
-                        ImprimirPeca(tab.Peca(i,j));
-                        Console.Write(" ");
-                    }
+
+                    Console.WriteLine();
                 }
-                Console.WriteLine();
             }
             Console.WriteLine("  a b c d e f g h");
+        }
+
+        public static void ImprimirTabuleiro(Tabuleiro tab, bool [,] PosicoesPossiveis)
+            //novo construtor para imprimir o tabuleiro que recebe,
+            //além do tabuleiro, a matriz de booleanos de posições possíveis
+        {
+            ConsoleColor FundoOriginal = Console.BackgroundColor;
+            ConsoleColor FundoAlterado = ConsoleColor.DarkGray; //cinza escuro quando a peça estiver marcada
+            {
+                for (int i = 0; i < tab.Linhas; i++)
+                {
+                    Console.Write(8 - i + " ");
+                    for (int j = 0; j < tab.Colunas; j++)
+                    {
+                        if (PosicoesPossiveis[i, j] == true)
+                        {
+                            Console.BackgroundColor = FundoAlterado;
+                        }
+                        else
+                        {
+                            Console.BackgroundColor = FundoOriginal;
+                        }
+                        ImprimirPeca(tab.Peca(i, j));
+                        Console.BackgroundColor = FundoOriginal;
+                    }
+
+                    Console.WriteLine();
+                }
+            }
+            Console.WriteLine("  a b c d e f g h");
+            Console.BackgroundColor = FundoOriginal; //Garantir que o fundo vai voltar para a cor original
         }
 
         public static PosicaoXadrez LerPosicaoXadrez() //Lê uma posição do xadrez que o usuário digitar
@@ -42,19 +69,28 @@ namespace Jogodexadrez
 
         public static void ImprimirPeca(Peca peca)
         {
-            if (peca.Cor == Cor.Branca)
+            if (peca == null)
             {
-                Console.Write(peca);
+                Console.Write("- ");
             }
             else
             {
-                ConsoleColor aux = Console.ForegroundColor; //salvei a cor cinza
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write(peca);
-                Console.ForegroundColor = aux; //voltei para a cor cinza
-            }
+                if (peca.Cor == Cor.Branca)
+                {
+                    Console.Write(peca);
+                }
+                else
+                {
+                    ConsoleColor aux = Console.ForegroundColor; //salvei a cor cinza
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write(peca);
+                    Console.ForegroundColor = aux; //voltei para a cor cinza
+                }
 
-            
+                Console.Write(" ");
+
+
+            }
         }
     }
 }

@@ -3,7 +3,7 @@
 
 namespace tabuleiro
 {
-    internal class Peca
+    abstract class Peca
     {
         public Posicao Posicao { get; set; }
         public Cor Cor { get; protected set; }
@@ -22,5 +22,11 @@ namespace tabuleiro
         {
             QteMovimentos++;
         }
+
+        //Retorna um booleano porque quero marcar na matriz onde o movimento é possível e onde não é
+        //Método abstrato porque depende da peça, então não posso implantar nessa classe
+        public abstract bool[,] MovimentosPossiveis(); 
+        
+        
     }
 }

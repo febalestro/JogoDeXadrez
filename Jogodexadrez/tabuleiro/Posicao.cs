@@ -13,6 +13,12 @@ namespace tabuleiro
             this.Coluna = coluna;
         }
 
+        public void DefinirValores(int linha, int coluna) //método criado para auxiliar a criar as movimentações personalizadas de cada peça
+        {
+           Linha = linha;
+           Coluna = coluna;
+        }
+
         public override string ToString()
         {
             return Linha
