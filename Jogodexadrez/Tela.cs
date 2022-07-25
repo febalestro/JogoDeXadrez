@@ -1,5 +1,6 @@
 ﻿using tabuleiro;
 using xadrez;
+using System.Collections.Generic;
 
 namespace Jogodexadrez
 {
@@ -10,6 +11,40 @@ namespace Jogodexadrez
          * Como faço para imprimir a posição das peças? como essa localização é privativa do tabuleiro, preciso ver uma forma
          * de dar acesso a uma peça no meu tabuleiro
          */
+        public static void ImprimirPartida(PartidaDeXadrez partida)
+        {
+            ImprimirTabuleiro(partida.Tab);
+            Console.WriteLine();
+            ImprimirPecasCapturadas(partida);
+            Console.WriteLine();
+            Console.WriteLine("Turno: " + partida.Turno);
+            Console.WriteLine("Aguardando jogada: " + partida.JogadorAtual);
+
+        }
+
+        public static void ImprimirPecasCapturadas(PartidaDeXadrez partida)
+        {
+            Console.WriteLine("Peças capturadas: ");
+            Console.Write("Brancas: ");
+            ImprimirConjunto(partida.PecasCapturadas(Cor.Branca));
+            Console.WriteLine();
+            Console.Write("Pretas: ");
+            ConsoleColor aux = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            ImprimirConjunto(partida.PecasCapturadas(Cor.Preta));
+            Console.ForegroundColor= aux;
+            Console.WriteLine();
+        }
+
+        public static void ImprimirConjunto(HashSet<Peca> conjunto)
+        {
+            Console.Write(" [");
+            foreach (Peca x in conjunto)
+            {
+                Console.Write(x + " ");
+            }
+            Console.Write("]");
+        }
         public static void ImprimirTabuleiro(Tabuleiro tab)
         {
             {
@@ -28,9 +63,9 @@ namespace Jogodexadrez
             Console.WriteLine("  a b c d e f g h");
         }
 
-        public static void ImprimirTabuleiro(Tabuleiro tab, bool [,] PosicoesPossiveis)
-            //novo construtor para imprimir o tabuleiro que recebe,
-            //além do tabuleiro, a matriz de booleanos de posições possíveis
+        public static void ImprimirTabuleiro(Tabuleiro tab, bool[,] PosicoesPossiveis)
+        //novo construtor para imprimir o tabuleiro que recebe,
+        //além do tabuleiro, a matriz de booleanos de posições possíveis
         {
             ConsoleColor FundoOriginal = Console.BackgroundColor;
             ConsoleColor FundoAlterado = ConsoleColor.DarkGray; //cinza escuro quando a peça estiver marcada
